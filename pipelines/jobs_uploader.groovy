@@ -8,16 +8,17 @@ def JOBS_DIR = "/jobs"
 //def CONFIG_FILE = "${WORKSPACE}/uploader_config.ini"
 def CONFIG_FILE = "uploader_config.ini"
 
-node('maven') {
+timeout(300) {
+    node('maven') {
 
-    stage('Checkout') {
-        checkout scm
-    }
+        stage('Checkout') {
+            checkout scm
+        }
 
-    stage('Create uploader.ini') {
-        withCredentials([usernamePassword(credentialsId: "uploader",
+        stage('Create uploader.ini') {
+            withCredentials([usernamePassword(credentialsId: "uploader",
                 passwordVariable: 'pass', usernameVariable: 'user')]) {
-            sh """
+                sh """
         cat > ${CONFIG_FILE} <<'EOF'
 [jenkins]
 url=http://localhost/
@@ -29,10 +30,11 @@ recursive=True
 keep_descriptions=False
 EOF
         """
+            }
         }
-    }
 
-    stage('Run Upload Script') {
-        sh "jenkins-jobs --conf  ${CONFIG_FILE} --flush-cache update ${JOBS_DIR}"
+        stage('Run Upload Script') {
+            sh "jenkins-jobs --conf  ${CONFIG_FILE} --flush-cache update ${JOBS_DIR}"
+        }
     }
 }
