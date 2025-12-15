@@ -1,8 +1,10 @@
+import groovy.transform.Field
+
 @Field
 def JOBS_DIR = "${WORKSPACE}/jobs"
 
 @Field
-def CONFIG_FILE = "${WORKSPACE}/uploader.ini"
+def CONFIG_FILE = "${WORKSPACE}/uploader_config.ini"
 
 node('maven') {
 
