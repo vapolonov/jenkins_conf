@@ -1,0 +1,10 @@
+---
+- scm:
+    name: api_tests_scm
+    scm:
+      - git:
+          url: https://github.com/vapolonov/rest_assured.git
+          credentials-id: jenkins
+          branches:
+            - FETCH_HEAD
+          refspec: ${REFSPEC}

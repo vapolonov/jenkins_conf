@@ -1,0 +1,25 @@
+---
+- project:
+    name: 'jobs_uploader'
+    jobs:
+      - jobs_uploader
+
+- project:
+    name: 'jobs_runner'
+    jobs:
+      - jobs_runner
+
+- project:
+    name: 'ui_tests'
+    jobs:
+      - ui_tests
+
+- project:
+    name: 'api_tests'
+    jobs:
+      - api_tests
+
+- project:
+    name: 'mobile_tests'
+    jobs:
+      - mobile_tests

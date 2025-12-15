@@ -1,0 +1,19 @@
+---
+- view:
+    name: QA
+    view-type: list
+    description: |
+      '<h3 style="color: red;">QA</h3>'
+    filter-executors: true
+    filter-queue: true
+    job-name:
+      - 'jobs_uploader'
+      - 'jobs_runner'
+      - 'ui_tests'
+      - 'api_tests'
+      - 'mobile_tests'
+    columns:
+      - status
+      - weather
+      - job
+      - build-button

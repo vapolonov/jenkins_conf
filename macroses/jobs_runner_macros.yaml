@@ -1,0 +1,10 @@
+---
+- scm:
+    name: runner_scm
+    scm:
+      - git:
+          url: https://github.com/vapolonov/jenkins_config.git
+          credentials-id: jenkins
+          branches:
+            - FETCH_HEAD
+          refspec: main

@@ -1,0 +1,25 @@
+- job-template:
+    name: 'jobs_runner'
+    description: '<h3 style="color: red;">jobs runner</h3>'
+    project-type: pipeline
+    concurrent: false
+    properties:
+      - build-discarder:
+          num-to-keep: 10
+    parameters:
+      - text:
+          name: YAML_CONFIG
+          default: |
+            TEST_TYPES: 
+            - api_tests
+            - ui_tests
+            - mobile_tests
+          description: jobs to run
+      - string:
+          name: REFSPEC
+          default: main
+          description: Branch for running jobs
+    pipeline-scm:
+      scm:
+        - runner_scm
+      script-path: pipelines/jobs_runner.groovy

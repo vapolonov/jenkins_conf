@@ -1,0 +1,21 @@
+- job-template:
+    name: 'api_tests'
+    description: '<h3 style="color: purple;">api tests runner</h3>'
+    project-type: pipeline
+    concurrent: false
+    properties:
+      - build-discarder:
+          num-to-keep: 10
+    parameters:
+      - string:
+          name: REFSPEC
+          default: main
+          description: 'Branch for API tests'
+      - string:
+          name: BASE_URL
+          default: 'https://petstore.swagger.io/v2/'
+          description: Base URL for API tests
+    pipeline-scm:
+      scm:
+        - api_tests_scm
+      script-path: pipelines/api_runner.groovy

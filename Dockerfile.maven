@@ -1,0 +1,9 @@
+FROM jenkins/agent:jdk17
+
+USER root
+
+RUN mkdir -p /root/jenkins
+WORKDIR /root/jenkins
+
+RUN apt update -y
+RUN apt install -y maven

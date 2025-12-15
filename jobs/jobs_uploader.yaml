@@ -1,0 +1,14 @@
+- job:
+    name: 'jobs_uploader'
+    description: '<h3 style="color: red;">Upload Jenkins jobs using Groovy script</h3>'
+    project-type: pipeline
+    concurrent: false
+    parameters:
+      - string:
+          name: 'REFSPEC'
+          default: main
+          description: 'Branch'
+    pipeline-scm:
+      scm:
+        - uploader_scm
+      script-path: pipelines/jobs_uploader.groovy
