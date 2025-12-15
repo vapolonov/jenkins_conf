@@ -18,4 +18,4 @@
     pipeline-scm:
       scm:
         - api_tests_scm
-      script-path: pipelines/api_runner.groovy
+      script-path: api_runner.groovy

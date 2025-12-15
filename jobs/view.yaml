@@ -9,11 +9,14 @@
     job-name:
       - 'jobs_uploader'
       - 'jobs_runner'
-      - 'ui_tests'
       - 'api_tests'
-      - 'mobile_tests'
+#      - 'mobile_tests'
+#      - 'ui_tests'
     columns:
       - status
       - weather
       - job
+      - last-success
+      - last-failure
+      - last-duration
       - build-button

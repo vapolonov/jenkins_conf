@@ -3,7 +3,7 @@
     name: uploader_scm
     scm:
       - git:
-          url: https://github.com/vapolonov/jenkins_config.git
+          url: https://github.com/vapolonov/jenkins_conf.git
           credentials-id: jenkins
           branches:
             - FETCH_HEAD

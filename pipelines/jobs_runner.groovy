@@ -33,34 +33,35 @@ timeout(300) {
         parallel testsRunning // Запуск параллельных задач
 
         stage("Publish allure report") {
-    try {
-        jobs.each { job ->
-            def upstreamProject = job.getParent().getFullName() // Получаем имя проекта
-            def upstreamBuild = job.getId() // Получаем ID сборки
+            try {
+                jobs.each { job ->
+                    def upstreamProject = job.getParent().getFullName() // Получаем имя проекта
+                    def upstreamBuild = job.getId() // Получаем ID сборки
 
-            copyArtifacts filter: "**/allure-results", projectName: upstreamProject, selector: specific("${upstreamBuild}")
-        }
+                    copyArtifacts filter: "**/allure-results", projectName: upstreamProject, selector: specific("${upstreamBuild}")
+                }
 
-        allure([
-                includeProperties: false,
-                jdk              : '',
-                properties       : [],
-                reportBuildPolicy: 'ALWAYS',
-                results          : [[path: './app/allure-results']]
-        ])
-        } catch (Exception e) {
-            echo "Error during publishing allure report: ${e.message}"
-        }
+                allure([
+                    includeProperties: false,
+                    jdk              : '',
+                    properties       : [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results          : [[path: './app/allure-results']]
+                ])
+            } catch (Exception e) {
+                echo "Error during publishing allure report: ${e.message}"
+            }
 
-        stage("Telegram notification") {
-    def message = """============ ALL TESTS RESULT ==============
+            stage("Telegram notification") {
+                def message = """============ ALL TESTS RESULT ==============
     """
-    testsStatistic.each { k, v ->
-        message += "\t\t$k: $v\n"
-    }
+                testsStatistic.each { k, v ->
+                    message += "\t\t$k: $v\n"
+                }
 
-            withCredentials([string(credentialsId: 'chat_id', variable: 'chatId'), string(credentialsId: 'bot_token', variable: 'botToken')]) {
-                sh "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\": \"$chatId\", \"text\": \"$message\"}' \"https://api.telegram.org/bot$botToken/sendMessage\""
+                withCredentials([string(credentialsId: 'chat_id', variable: 'chatId'), string(credentialsId: 'bot_token', variable: 'botToken')]) {
+                    sh "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\": \"$chatId\", \"text\": \"$message\"}' \"https://api.telegram.org/bot$botToken/sendMessage\""
+                }
             }
         }
     }
